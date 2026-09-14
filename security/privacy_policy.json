@@ -1,0 +1,49 @@
+{
+  "policy_name": "Sentinel-X On-Device Privacy Enforcement Standard",
+  "version": "2.0.0",
+  "target_frameworks": [
+    "India Digital Personal Data Protection Act (DPDP 2023)",
+    "General Data Protection Regulation (GDPR Article 25 - Privacy by Design)",
+    "HIPAA Privacy Rule for Non-Cloud Processing"
+  ],
+  "zero_retention_policy": {
+    "enforced": true,
+    "storage_mode": "volatile_memory_only",
+    "disk_persistence_allowed": false,
+    "automatic_redaction_before_render": true
+  },
+  "protected_entity_definitions": [
+    {
+      "code": "AADHAAR",
+      "region": "India",
+      "category": "GOVERNMENT_ID",
+      "severity": "CRITICAL",
+      "masking_rule": "Retain last 4 digits only, e.g. [REDACTED_AADHAAR]-7654"
+    },
+    {
+      "code": "PAN_CARD",
+      "region": "India",
+      "category": "GOVERNMENT_ID",
+      "severity": "CRITICAL",
+      "masking_rule": "Completely redact to [REDACTED_PAN_CARD]"
+    },
+    {
+      "code": "CREDIT_CARD",
+      "region": "Global",
+      "category": "FINANCIAL",
+      "severity": "CRITICAL",
+      "masking_rule": "Retain last 4 digits, e.g. [REDACTED_CARD]-4444"
+    },
+    {
+      "code": "API_SECRET_TOKEN",
+      "region": "Global",
+      "category": "CREDENTIAL",
+      "severity": "CRITICAL",
+      "masking_rule": "Completely purge token value to [REDACTED_API_KEY]"
+    }
+  ],
+  "telemetry_egress": {
+    "cloud_telemetry_prohibited": true,
+    "allow_anonymized_crash_reports": false
+  }
+}
