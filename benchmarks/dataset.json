@@ -1,0 +1,46 @@
+{
+  "test_cases": [
+    {
+      "id": "tc_01",
+      "category": "banking_phishing",
+      "text": "URGENT: Chase Security Alert. Suspicious login detected from IP 192.168.1.1. Confirm your password and PIN at http://chase.online-security.xyz within 2 hours to avoid account termination.",
+      "expected_level": "CRITICAL",
+      "expected_score_min": 75
+    },
+    {
+      "id": "tc_02",
+      "category": "lottery_fraud",
+      "text": "Congratulations! You won $100,000 cash in the World Mobile Lottery! To claim, wire transfer a processing fee of $250 via Western Union or Gift Card today.",
+      "expected_level": "CRITICAL",
+      "expected_score_min": 70
+    },
+    {
+      "id": "tc_03",
+      "category": "delivery_scam",
+      "text": "FedEx Delivery Update: Your package has been placed on hold due to missing address info. Update details and pay $1.99 redelivery fee at http://fedex-redelivery.top/status",
+      "expected_level": "HIGH",
+      "expected_score_min": 50
+    },
+    {
+      "id": "tc_04",
+      "category": "crypto_seed_theft",
+      "text": "Metamask Support: Account migration required. Please verify your 12-word seed phrase immediately to preserve your wallet assets.",
+      "expected_level": "CRITICAL",
+      "expected_score_min": 60
+    },
+    {
+      "id": "tc_05",
+      "category": "legitimate_work_email",
+      "text": "Hi team, please find attached the updated project roadmap and slides for tomorrow's Snapdragon demonstration. Let me know if you have feedback.",
+      "expected_level": "SAFE",
+      "expected_score_min": 0
+    },
+    {
+      "id": "tc_06",
+      "category": "legitimate_newsletter",
+      "text": "Here is your weekly engineering digest covering Qualcomm Oryon CPU architecture, Hexagon NPU quantization, and ONNX Runtime performance updates.",
+      "expected_level": "SAFE",
+      "expected_score_min": 0
+    }
+  ]
+}

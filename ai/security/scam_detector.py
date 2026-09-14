@@ -10,15 +10,15 @@ from ai.runtime.hardware_detector import HardwareDetector
 
 class ScamDetector:
     URGENCY_PATTERNS = [
-        r"\b(urgent|immediately|act now|suspended|immediate action|within 24 hours|account will be terminated)\b",
-        r"\b(last warning|final notice|emergency|action required|risk of closure)\b",
-        r"\b(limited time|expire in \d+|don't wait)\b"
+        r"\b(urgent|immediately|act now|suspended|immediate action|within 24 hours|within \d+ hours|account will be terminated)\b",
+        r"\b(last warning|final notice|emergency|action required|risk of closure|claim now)\b",
+        r"\b(expires? today|pay today|act today|claim today|due today|limited time|expire in \d+|don't wait)\b"
     ]
 
     IMPERSONATION_PATTERNS = [
         r"\b(paypal|apple support|microsoft support|bank of america|wells fargo|chase|amazon customer service)\b",
-        r"\b(internal revenue service|irs|tax department|customs|dhl express|fedex delivery|postal service)\b",
-        r"\b(it security department|system administrator|helpdesk support|kyc verification team)\b"
+        r"\b(internal revenue service|irs|tax department|customs|dhl express|fedex|postal service)\b",
+        r"\b(it security department|system administrator|helpdesk support|kyc verification team|metamask|coinbase)\b"
     ]
 
     CREDENTIAL_PATTERNS = [
@@ -29,7 +29,7 @@ class ScamDetector:
 
     FINANCIAL_PATTERNS = [
         r"\b(wire transfer|cryptocurrency|bitcoin|usdt|gift card|western union)\b",
-        r"\b(you have won|lottery winner|cash prize|unclaimed refund|inheritance fund)\b",
+        r"\b(you have won|you won|won \$?\d+|lottery|cash prize|unclaimed refund|inheritance fund)\b",
         r"\b(overdue payment|invoice attached|processing fee|tax fee|customs duty payable)\b"
     ]
 
@@ -96,12 +96,12 @@ class ScamDetector:
             found = re.findall(pat, t_lower, re.IGNORECASE)
             if found:
                 financial_matches.extend(found)
+                threat_score += 25
         if financial_matches:
-            threat_score += 20
             reasons.append({
                 "type": "Financial Solicitation / Prize Hook",
                 "weight": "high",
-                "detail": f"Monetary transfer or prize lure detected: '{financial_matches[0]}'"
+                "detail": f"Monetary transfer, fee request, or prize lure detected: '{', '.join(set(financial_matches[:3]))}'"
             })
 
         # 5. Malicious / Suspicious URL Detection
